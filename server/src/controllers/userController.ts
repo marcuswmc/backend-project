@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { IUser } from "../models/userModel.js";
 import userService from "../services/userService.js";
+import { validationResult } from "express-validator";
 
 class UserController {
     getAll = async (req: Request, res: Response) => {
@@ -28,6 +29,13 @@ class UserController {
     };
     register = async (req: Request, res: Response) => {
         try {
+
+            const error = validationResult(req)
+
+            if(!error.isEmpty()){
+                return res.status(400).json({error: error.array()})
+            }
+
             const userToCreate: IUser = req.body;
             const createdUser: any = await userService.register(userToCreate);
             res.status(201).json(createdUser);
@@ -70,3 +78,7 @@ class UserController {
 }
 
 export default new UserController();
+// function userValidate(req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>) {
+//     throw new Error("Function not implemented.");
+// }
+
