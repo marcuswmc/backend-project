@@ -27,7 +27,6 @@ This is a backend project for an ecommerce developed during the backend module o
     ```bash
     git clone https://github.com/marcuswmc/backend-project
     cd backend-project
-    cd server
     ```
 
 2. **Install dependencies:**
